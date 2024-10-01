@@ -1,3 +1,5 @@
+source ~/.local/share/omakub/defaults/bash/rc
+
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -88,32 +90,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/ckirby/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/ckirby/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/ckirby/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/ckirby/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-# I added these
-export PATH="$PATH:/mnt/c/lastools/bin"
-export PATH="$PATH:/home/ckirby/bin"
-export PATH="$PATH:/opt/nvim-linux64/bin"
-export PATH="$PATH:$HOME/repos/support/shims"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 export EDITOR="nvim"
+export SUDO_EDITOR="$EDITOR"
+. "$HOME/.cargo/env"
+
 alias qmv='qmv --format destination-only'
 
 alias cdp='cd $(ARCHIVES="$(find ~/.rtl/Archives -maxdepth 1)"; REPOS="$(find ~/repos/ -maxdepth 1)"; PLACES="$ARCHIVES $REPOS"; echo "$PLACES" | fzf)'
@@ -142,6 +122,10 @@ fi
 
 unset env
 # <<< ssh-agent startup <<<
+
+# <<< scripts <<<
+export PATH="$PATH:/home/ckirby/repos/scripts/shims"
+# >>> scripts >>>
 
 eval "$(starship init bash)"
 
