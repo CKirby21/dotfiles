@@ -130,5 +130,7 @@ unset env
 export PATH="$PATH:/home/ckirby/repos/scripts/shims"
 # >>> scripts >>>
 
+alias vi='nvim'
+
 eval "$(starship init bash)"
 
