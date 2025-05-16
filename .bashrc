@@ -13,7 +13,6 @@ esac
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
 HISTCONTROL=ignoreboth
-
 # append to the history file, don't overwrite it
 shopt -s histappend
 
@@ -66,15 +65,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
@@ -93,10 +83,6 @@ fi
 export EDITOR="nvim"
 export SUDO_EDITOR="$EDITOR"
 . "$HOME/.cargo/env"
-
-alias qmv='qmv --format destination-only'
-
-alias cdp='cd $(ARCHIVES="$(find ~/.rtl/Archives -maxdepth 1)"; REPOS="$(find ~/repos/ -maxdepth 1)"; PLACES="$ARCHIVES $REPOS"; echo "$PLACES" | fzf)'
 
 # >>> ssh-agent startup >>>
 # Have ssh agent run on startup
@@ -126,6 +112,15 @@ fi
 unset env
 # <<< ssh-agent startup <<<
 
+alias qmv='qmv --format destination-only'
+
+Ibashc () { "$EDITOR" "$HOME/.bashrc" ; }
+Ibashs () { source "$HOME/.bashrc" ; }
+
+Invimc () { "$EDITOR" "$HOME/.config/nvim/init.lua" ; }
+
+Ip () { cd "$(fd --max-depth 1 . "$HOME/repos/" | fzf)" || return ; }
+
 # <<< scripts <<<
 export PATH="$PATH:/home/ckirby/repos/scripts/shims"
 # >>> scripts >>>
@@ -133,4 +128,7 @@ export PATH="$PATH:/home/ckirby/repos/scripts/shims"
 alias vi='nvim'
 
 eval "$(starship init bash)"
+
+cat "$HOME/repos/brain/Restrictions.md"
+
 
